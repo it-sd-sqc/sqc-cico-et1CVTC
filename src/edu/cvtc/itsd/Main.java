@@ -41,7 +41,7 @@ public class Main {
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
+      if (fb.getDocument() != null && isNumeric(stringToAdd) || stringToAdd.isEmpty()) {
         super.insertString(fb, offset, stringToAdd, attr);
       }
       else {
@@ -53,11 +53,19 @@ public class Main {
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
+      if (fb.getDocument() != null && isNumeric(stringToAdd) || stringToAdd.isEmpty()) {
         super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
-      }
-      else {
+      } else {
         Toolkit.getDefaultToolkit().beep();
+      }
+    }
+
+    private boolean isNumeric(String str) {
+      try {
+        Double.parseDouble(str);
+        return true;
+      } catch (NumberFormatException e) {
+        return false;
       }
     }
   }
@@ -204,6 +212,10 @@ public class Main {
     timeout.cancel();
     timeout = null;
     fieldNumber.setText("");
+//    InputFilter filter = new InputFilter();
+//    if (filter.isNumeric(fieldNumber.getText())) {
+//
+//    }
     ((CardLayout)deck.getLayout()).show(deck, CARD_MAIN);
     fieldNumber.grabFocus();
   }
