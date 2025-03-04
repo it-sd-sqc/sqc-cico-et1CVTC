@@ -70,3 +70,14 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 
 ## Expected results
 * Field should ignore non-numerical input
+
+# Module 5: Leaving timeout session
+
+## Test steps
+1. Build and run CiCo
+2. Enter 00000000 into the field and click Update
+
+## Expected results
+* It should display the usual "Developer" for username
+and their check-in or out status, but should include a
+button so the user can choose to leave the timeout session.
