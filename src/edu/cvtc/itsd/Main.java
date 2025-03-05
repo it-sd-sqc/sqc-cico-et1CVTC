@@ -212,17 +212,12 @@ public class Main {
     timeout.cancel();
     timeout = null;
     fieldNumber.setText("");
-//    InputFilter filter = new InputFilter();
-//    if (filter.isNumeric(fieldNumber.getText())) {
-//
-//    }
     ((CardLayout)deck.getLayout()).show(deck, CARD_MAIN);
     fieldNumber.grabFocus();
   }
 
   // Display name and new status //////////////////////////////////////////////
-  // Module 3 tickets: Display user name and new status. Doesn't require a
-  // method and can be done where this is called instead.
+  // Doesn't require a method and can be done where this is called instead.
   private static void updateStateLabels(String name, boolean isCheckedInNow) {
     labelUser.setText(name);
     labelState.setText(isCheckedInNow ? "Checked IN" : "Checked OUT");
@@ -301,6 +296,12 @@ public class Main {
     labelState.setForeground(Color.magenta);
     panelStatus.add(labelState);
 
+    JButton skipTimeOut = new JButton("Skip TimeOut");
+    skipTimeOut.addActionListener(handler);
+    skipTimeOut.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    skipTimeOut.setForeground(Color.black);
+    panelStatus.add(skipTimeOut);
+
     panelStatus.add(Box.createVerticalGlue());
 
     // Error panel ////////////////////////////////////////////////////////////
@@ -318,7 +319,7 @@ public class Main {
     labelReason.setForeground(Color.yellow);
     panelError.add(labelReason);
 
-    buttonAcknowledge = new JButton("OK");
+    buttonAcknowledge = new JButton("Ok");
     buttonAcknowledge.addActionListener(handler);
     buttonAcknowledge.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     buttonAcknowledge.setForeground(Color.red);
