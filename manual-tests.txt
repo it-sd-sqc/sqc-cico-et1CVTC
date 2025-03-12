@@ -62,6 +62,8 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 * Should display "Developer" for the user name.
 
 
+Tests test
+
 # Module 4: Numerical exception
 
 ## Test steps
