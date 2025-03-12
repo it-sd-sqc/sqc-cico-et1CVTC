@@ -41,7 +41,7 @@ public class Main {
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
+      if (fb.getDocument() != null && isNumeric(stringToAdd) || stringToAdd.isEmpty()) {
         super.insertString(fb, offset, stringToAdd, attr);
       }
       else {
@@ -53,11 +53,19 @@ public class Main {
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
+      if (fb.getDocument() != null && isNumeric(stringToAdd) || stringToAdd.isEmpty()) {
         super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
-      }
-      else {
+      } else {
         Toolkit.getDefaultToolkit().beep();
+      }
+    }
+
+    private boolean isNumeric(String str) {
+      try {
+        Double.parseDouble(str);
+        return true;
+      } catch (NumberFormatException e) {
+        return false;
       }
     }
   }
@@ -209,8 +217,7 @@ public class Main {
   }
 
   // Display name and new status //////////////////////////////////////////////
-  // Module 3 tickets: Display user name and new status. Doesn't require a
-  // method and can be done where this is called instead.
+  // Doesn't require a method and can be done where this is called instead.
   private static void updateStateLabels(String name, boolean isCheckedInNow) {
     labelUser.setText(name);
     labelState.setText(isCheckedInNow ? "Checked IN" : "Checked OUT");
@@ -289,6 +296,12 @@ public class Main {
     labelState.setForeground(Color.magenta);
     panelStatus.add(labelState);
 
+    JButton skipTimeOut = new JButton("Skip TimeOut");
+    skipTimeOut.addActionListener(handler);
+    skipTimeOut.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    skipTimeOut.setForeground(Color.black);
+    panelStatus.add(skipTimeOut);
+
     panelStatus.add(Box.createVerticalGlue());
 
     // Error panel ////////////////////////////////////////////////////////////
@@ -306,7 +319,7 @@ public class Main {
     labelReason.setForeground(Color.yellow);
     panelError.add(labelReason);
 
-    buttonAcknowledge = new JButton("OK");
+    buttonAcknowledge = new JButton("Ok");
     buttonAcknowledge.addActionListener(handler);
     buttonAcknowledge.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     buttonAcknowledge.setForeground(Color.red);
